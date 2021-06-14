@@ -15,6 +15,8 @@
   , "web-file"
   , "web-html"
   , "web-uievents"
+  , "css"
+  , "halogen-css"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
