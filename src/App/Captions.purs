@@ -46,10 +46,11 @@ initialState _ =
 
 render :: forall m. MonadAff m => State -> H.ComponentHTML Action Slots m
 render state =
-  HH.div_
+  HH.div
+    [ CSS.style Styles.component_container]
     [ HH.div 
         [ CSS.style Styles.header ]
-        [ HH.h1_ [HH.text "Add Captions"] ] 
+        [ HH.h1_ [HH.text "Pure Subs"] ] 
     , HH.div
         [ CSS.style Styles.video_container ] 
         [ HH.slot _video_player unit Video.component unit HandleVideo ]

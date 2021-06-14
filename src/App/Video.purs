@@ -2,6 +2,8 @@ module App.Video (component, Output(..)) where
 
 -- import Control.Monad (class Bind)
 
+import App.Styles as Styles
+import Halogen.HTML.CSS as CSS
 import DOM.HTML.Indexed.InputAcceptType (InputAcceptType, InputAcceptTypeAtom(..))
 import Data.Foldable (traverse_)
 import Data.Maybe (Maybe(..))
@@ -14,7 +16,6 @@ import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Prelude (Unit, bind, const, discard, pure, unit, ($), (=<<), (>>=), (<<<))
 import Web.Event.Event as Event
-
 import Web.File.File as File
 import Web.File.FileList as FileList
 import Web.File.FileReader.Aff as FileReaderAff
@@ -62,7 +63,8 @@ supported_formats =
 
 blank_player :: forall w. HH.HTML w Action
 blank_player = 
-    HH.div_ 
+    HH.div
+        [ CSS.style Styles.blank_player] 
         [ HH.span_ [HH.text "Choose file to upload"]
         , HH.input
             [ HP.type_ HP.InputFile
@@ -73,8 +75,12 @@ blank_player =
 
 video_player :: forall w i. String -> HH.HTML w i
 video_player url = 
-    HH.div_ [
-        HH.video [HP.src url] []
+    HH.div_ 
+      [ HH.video 
+          [ HP.src url
+          , CSS.style Styles.video
+          ] 
+          []
     ]
 
 handleAction :: forall m slots. MonadAff m => Action -> H.HalogenM State Action slots Output m Unit 
